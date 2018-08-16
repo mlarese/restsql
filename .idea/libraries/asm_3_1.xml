@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="asm-3.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/asm-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gmetric4j-1.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-core-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-server-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json_simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr311-api-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-annotation-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-core-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-ganglia-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-graphite-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-healthchecks-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-jersey-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-json-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-jvm-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/metrics-servlets-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.14-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/oncrpc-1.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgresql-9.0-801.jdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-simple-1.7.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-xjc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/json_simple-1.1-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-xjc.jar!/1.0" />
+    </SOURCES>
+  </library>
+</component>

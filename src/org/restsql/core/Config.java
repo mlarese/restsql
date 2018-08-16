@@ -12,6 +12,8 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.ws.rs.core.Context;
+
 /**
  * Loads properties from user-supplied file, defines property keys and defaults, and configures logging for framework.
  * 
@@ -185,18 +187,20 @@ public class Config {
 				if (file.exists()) {
 					inputStream = new FileInputStream(file);
 				} else {
-					inputStream = Config.class.getResourceAsStream(restsqlPropertiesFileName);
+					inputStream = Config.class.getResourceAsStream(DEFAULT_RESTSQL_PROPERTIES);
 				}
 				if (inputStream != null) {
+					message="loadAllProperties from resource";
+					printToConsole("INFO: restSQL %s", message);
 					properties.backingProperties.load(inputStream);
 					propertiesLoaded = true;
 				} else {
-					message = String.format("Error loading properties from %s: %s. Using defaults.",
+					message = String.format("Error loading properties from %s: %s. Using defaults from war.",
 							restsqlPropertiesFileName,
 							(file.exists() ? "cannot read file" : "file not found"));
 				}
 			} catch (final Exception exception) {
-				message = String.format("Error loading properties from %s: %s. Using defaults.",
+				message = String.format("Error loading properties from %s: %s. Using defaults from war.",
 						restsqlPropertiesFileName, exception.toString());
 			} finally {
 				if (inputStream != null) {
@@ -214,7 +218,17 @@ public class Config {
 				logger.error(message);
 				printToConsole("ERROR: restSQL %s", message);
 			} else {
-				message = String.format("loaded %d properties from %s", properties.backingProperties
+				String curProp =  System.getProperty("restsql.database.user");
+				if(curProp!=null) properties.backingProperties.setProperty("database.user",curProp);
+
+				curProp =  System.getProperty("restsql.database.password");
+				if(curProp!=null) properties.backingProperties.setProperty("database.password",curProp);
+
+				curProp =  System.getProperty("restsql.database.url");
+				if(curProp!=null) properties.backingProperties.setProperty("database.url",curProp);
+
+
+				message = String.format("loaded n. %d properties from %s", properties.backingProperties
 						.entrySet().size(), restsqlPropertiesFileName);
 				if (logger.isInfoEnabled()) {
 					logger.info(message);
