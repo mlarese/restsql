@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT service_id, cp_id, cp_service_name, cp_activate_url, cp_deact_url, cp_bill_response_url, wind_site_id, wind_mt_format, wind_mt_udh, wind_mt_reqsource, wind_caring_service_type, wind_deact_service_type, tim_service_name, postback_url, status_id, creation_date, last_modify_date
+		FROM service
+	</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="service" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

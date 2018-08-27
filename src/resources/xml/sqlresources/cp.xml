@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT cp_id, cp_name, cp_token, wind_pb_mt_user, wind_pb_mt_pwd, tim_eng_csp_name, status_id, creation_date
+		FROM cp
+	</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="cp" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT row_id, cp_id, service_id, daily_volume_billing, date
+		FROM reporting
+	</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="reporting" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

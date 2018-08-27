@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT row_id, service_id, billing_id, wind_bill_service_type
+		FROM service_billingid
+	</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="service_billingid" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

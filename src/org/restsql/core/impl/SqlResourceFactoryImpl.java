@@ -167,12 +167,14 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 	private void getSqlResourceNames(final List<String> resNames, final String dirName,
 			final String packageName) throws SqlResourceFactoryException {
 		final File dir = new File(dirName);
+		//Config.class.getClassLoader().
 		if (dir.exists()) {
 			Config.logger.info("listing files for " + dirName);
 			for (final File file : dir.listFiles()) {
 				if (file.isFile()) {
 					final int extIndex = file.getName().indexOf(".xml");
 					if (extIndex > 0) {
+						Config.logger.info("----- "+packageName + file.getName().substring(0, extIndex));
 						resNames.add(packageName + file.getName().substring(0, extIndex));
 					}
 				}
@@ -185,9 +187,19 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 				}
 			}
 		} else {
-			final String message = "SQL Resources directory " + dirName + " does not exist";
-			Config.logger.error(message);
-			throw new SqlResourceFactoryException(message);
+			//final String message = "SQL Resources directory " + dirName + " does not exist";
+			//Config.logger.error(message);
+			//throw new SqlResourceFactoryException(message);
+
+			resNames.add(packageName + "cp");
+			resNames.add(packageName + "service");
+			resNames.add(packageName + "transactions");
+			resNames.add(packageName + "service_billingid");
+			resNames.add(packageName + "billingid");
+			resNames.add(packageName + "operator");
+			resNames.add(packageName + "reporting");
+			resNames.add(packageName + "subscription");
+			resNames.add(packageName + "country");
 		}
 	}
 }

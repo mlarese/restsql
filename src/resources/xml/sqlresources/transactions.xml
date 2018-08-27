@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT row_id, service_id, transaction_id, msisdn, billing_id, creation_date FROM transactions</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="transactions" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

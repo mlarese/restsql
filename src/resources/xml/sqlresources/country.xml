@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
+    <query>
+		SELECT country_id, country
+		FROM country
+	</query>
+    <metadata>
+        <database default="gtw"/>
+        <table name="country" role="Parent"/>
+    </metadata>
+</ns2:sqlResource>

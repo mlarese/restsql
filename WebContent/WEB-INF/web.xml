@@ -6,6 +6,13 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+
+	<!-- login-config>
+		<auth-method>DIGEST</auth-method>
+		<realm-name>My Aplication</realm-name>
+	</login-config-->
+
+
 	<filter>
 		<filter-name>jersey</filter-name>
 		<filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
@@ -103,7 +110,7 @@
 	</context-param>
 
 	<!-- Uncomment security-roles, security-constraints and login-config for authentication/authorization -->
-	<!--
+
 	<security-role>
 	    <role-name>all</role-name>
 	</security-role>
@@ -149,5 +156,5 @@
 		<auth-method>BASIC</auth-method>
 		<realm-name>UserDatabase</realm-name>
 	</login-config>
-	-->
+
 </web-app>
