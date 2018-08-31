@@ -21,20 +21,21 @@ public class RequestUtil {
 	// Note that the default media type, application/xml, must be the **LAST** one added!
 	static {
 		supportedMediaTypes.add("application/x-www-form-urlencoded");
-		supportedMediaTypes.add("application/json");
 		supportedMediaTypes.add("application/xml");
+		supportedMediaTypes.add("application/json");
 	}
 
 	/** Converts short form of media type to the proper internet standard, e.g. json to application/json. */
 	public static String convertToStandardInternetMediaType(final String mediaType) {
+		System.out.println("-- mediaType " + mediaType);
 		if (mediaType == null) {
-			return null;
+			return "application/json";
 		} else if (mediaType.equalsIgnoreCase("xml")) {
-			return "application/xml";
+			return "application/json";
 		} else if (mediaType.equalsIgnoreCase("json")) {
 			return "application/json";
 		} else {
-			return mediaType;
+			return "application/json";
 		}
 	}
 

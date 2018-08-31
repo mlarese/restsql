@@ -22,7 +22,7 @@ public class RequestDeserializerFactoryImpl implements RequestDeserializerFactor
 	@Override
 	public RequestDeserializer getRequestDeserializer(String mediaType) throws SqlResourceException {
 		if (mediaType.equals("application/xml")) {
-			return xmlRequestDeserializer;
+			return jsonRequestDeserializer;
 		} else if (mediaType.equals("application/json")) {
 			return jsonRequestDeserializer;
 		} else {

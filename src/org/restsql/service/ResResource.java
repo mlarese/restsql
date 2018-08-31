@@ -105,6 +105,8 @@ public class ResResource {
 	public Response get(@PathParam("resName") final String resName, @PathParam("resId1") final String resId1,
 			@Context final UriInfo uriInfo, @HeaderParam("Accept") String acceptMediaType,
 			@Context final HttpServletRequest httpRequest, @Context final SecurityContext securityContext) {
+
+		System.out.println("---####### GET 1 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1 },
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -116,6 +118,8 @@ public class ResResource {
 			@PathParam("resId2") final String resId2, @Context final UriInfo uriInfo,
 			@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
 			@Context final SecurityContext securityContext) {
+
+		System.out.println("---####### GET 2 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1, resId2 },
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -127,6 +131,8 @@ public class ResResource {
 			@PathParam("resId2") final String resId2, @PathParam("resId3") final String resId3,
 			@Context final UriInfo uriInfo, @HeaderParam("Accept") String acceptMediaType,
 			@Context final HttpServletRequest httpRequest, @Context final SecurityContext securityContext) {
+
+		System.out.println("---####### GET 3 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1, resId2,
 				resId3 }, getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType,
 				securityContext);
@@ -138,6 +144,8 @@ public class ResResource {
 	public Response get(@PathParam("resName") final String resName, @Context final UriInfo uriInfo,
 			@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
 			@Context final SecurityContext securityContext) {
+
+		System.out.println("---####### GET 4 ");
 		return executeRequest(httpRequest, Request.Type.SELECT, resName, null, null,
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -146,6 +154,7 @@ public class ResResource {
 	@Produces(MediaType.TEXT_HTML)
 	public Response getResources(@Context final UriInfo uriInfo) {
 		confRequestCounter.inc();
+		System.out.println("---####### GET 4 ");
 		final StringBuffer requestBody = HttpRequestHelper.buildSqlResourceListing();
 		return Response.ok(requestBody.toString()).build();
 	}
@@ -318,6 +327,10 @@ public class ResResource {
 		String requestMediaType = RequestUtil.getRequestMediaType(contentMediaType);
 		String responseMediaType = RequestUtil
 				.getResponseMediaType(params, requestMediaType, acceptMediaType);
+		System.out.println("---- responseMediaType "+responseMediaType);
+
+		responseMediaType = "application/json";
+
 		final HttpRequestAttributes httpAttributes = HttpRequestHelper.getHttpRequestAttributes(httpRequest,
 				requestBody, requestMediaType, responseMediaType);
 
@@ -330,7 +343,13 @@ public class ResResource {
 				requestType, resName)) {
 			Status status = Status.FORBIDDEN;
 			requestLogger.log(status.getStatusCode());
-			return Response.status(status).build();
+			return Response.status(status)
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Credentials", "true")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+					.header("Access-Control-Max-Age", "1209600")
+					.build();
 		}
 
 		try {
@@ -373,7 +392,14 @@ public class ResResource {
 			}
 
 			// Send the response
-			return Response.ok(responseBody).type(responseMediaType).header("Cache-Control", cacheControl)
+			return Response.ok(responseBody)
+					.type(responseMediaType)
+					.header("Cache-Control", cacheControl)
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Credentials", "true")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+					.header("Access-Control-Max-Age", "1209600")
 					.build();
 
 		} catch (final SqlResourceException exception) {

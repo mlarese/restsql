@@ -173,7 +173,6 @@ public class Config {
 	public static void loadAllProperties() {
 		startupLoggingConsoleEnabled = Boolean.valueOf(System.getProperty(
 				KEY_STARTUP_LOGGING_CONSOLE_ENABLED, "false"));
-
 		if (properties == null) {
 			// Load restsql properties
 			boolean propertiesLoaded = false;
