@@ -18,9 +18,26 @@ public class ProfileServlet extends HttpServlet {
 
         JSONObject o = new JSONObject();
 
-        o.put("user", p.getName());
+        if(p==null) {
+            o.put("role", null);
+            o.put("user", null);
+            o.put("logged", false);
+        }else {
+            o.put("role", findRole(request));
+            o.put("user", p.getName());
+            o.put("logged", true);
+        }
+
 
         response.getOutputStream().print( o.toJSONString());
 
+    }
+
+    private String findRole(HttpServletRequest req) {
+        String role = "";
+        role = "admin"; if(req.isUserInRole(role)) return role;
+        role = "reporting_cp"; if(req.isUserInRole(role)) return role;
+        role = "reporting_admin"; if(req.isUserInRole(role)) return role;
+        return  role;
     }
 }

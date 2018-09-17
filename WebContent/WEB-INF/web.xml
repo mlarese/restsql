@@ -7,11 +7,6 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- login-config>
-		<auth-method>DIGEST</auth-method>
-		<realm-name>My Aplication</realm-name>
-	</login-config-->
-
 
 	<filter>
 		<filter-name>jersey</filter-name>
@@ -89,6 +84,14 @@
 		<url-pattern>/monitoring/threads</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>profile</servlet-name>
+		<servlet-class>org.restsql.service.ProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>profile</servlet-name>
+		<url-pattern>/profile/*</url-pattern>
+	</servlet-mapping>
 	<!-- Disable RestEasy Deployer package scanning for JBoss AS 6+ -->
 	<context-param>
     		<param-name>resteasy.scan</param-name>
