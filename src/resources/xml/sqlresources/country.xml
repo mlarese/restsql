@@ -5,7 +5,7 @@
 		FROM country
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="country" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

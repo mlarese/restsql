@@ -5,7 +5,7 @@
 		FROM reporting
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="reporting" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

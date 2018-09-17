@@ -5,7 +5,7 @@
 		FROM subscription
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="subscription" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

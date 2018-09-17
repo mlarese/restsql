@@ -5,7 +5,7 @@
 		FROM cp
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="cp" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

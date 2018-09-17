@@ -5,7 +5,7 @@
 		FROM service
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="service" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

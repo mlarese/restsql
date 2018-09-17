@@ -5,7 +5,7 @@
 		FROM billingid
 	</query>
     <metadata>
-        <database default="gtw"/>
+        <database default="cspdb"/>
         <table name="billingid" role="Parent"/>
     </metadata>
 </ns2:sqlResource>

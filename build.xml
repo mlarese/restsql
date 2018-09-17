@@ -55,7 +55,7 @@
 		<mkdir dir="obj/lib" />
 
 		<!-- Create JAR -->
-		<jar destfile="obj/lib/restsql-${build.version}.jar">
+		<jar destfile="obj/lib/monitor.jar">
 			<fileset dir="obj/bin">
 				<exclude name="**/*.html" />
 			</fileset>
@@ -73,7 +73,7 @@
 			</manifest>
 		</jar>
 		<!-- Create WAR -->
-		<jar destfile="obj/lib/restsql-${build.version}.war">
+		<jar destfile="obj/lib/monitor.war">
 			<fileset dir="obj/war" />
 			<fileset file="CONTRIBUTORS.txt" />
 			<fileset file="LICENSE.txt" />
@@ -115,7 +115,7 @@
 		<mkdir dir="obj/lib" />
 
 		<!-- Create JAR -->
-		<jar destfile="obj/lib/restsql-${build.version}-src.jar">
+		<jar destfile="obj/lib/monitor-src.jar">
 			<fileset dir="src">
 				<exclude name="**/*.html" />
 			</fileset>
