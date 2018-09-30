@@ -28,7 +28,6 @@
           <root url="jar://$MODULE_DIR$/lib/servlet-api.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/postgresql-9.0-801.jdbc4.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/oncrpc-1.0.7.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-5.1.14-bin.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/metrics-servlets-3.1.0.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/metrics-jvm-3.1.0.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/metrics-json-3.1.0.jar!/" />
@@ -54,6 +53,9 @@
           <root url="jar://$MODULE_DIR$/lib/commons-lang-2.6.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/asm-3.1.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/jaxb-xjc.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-5.1.45.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/java-property-utils-1.13.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/cors-filter-2.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>

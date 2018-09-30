@@ -9,6 +9,37 @@
 
 
 	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedMethods</param-name>
+			<param-value>GET, POST, HEAD, PUT, DELETE, OPTIONS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowGenericHttpRequests</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedHeaders</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportsCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/*</url-pattern>
+		<url-pattern>/res/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
 		<filter-name>jersey</filter-name>
 		<filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
 		<init-param>
@@ -24,6 +55,7 @@
 			<param-value>.*\.html|.*\.xsd|.*\.xsl|.*\.xml</param-value>
 		</init-param>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>jersey</filter-name>
 		<url-pattern>/conf/*</url-pattern>
@@ -189,8 +221,8 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>/login.html</form-login-page>
-			<form-error-page>/error.html</form-error-page>
+			<form-login-page>/console/index.html</form-login-page>
+			<form-error-page>/console/index.html</form-error-page>
 		</form-login-config>
 	</login-config>
 

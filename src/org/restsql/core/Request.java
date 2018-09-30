@@ -78,7 +78,7 @@ public interface Request {
 	 * @author Mark Sawers
 	 */
 	public enum Type {
-		DELETE, INSERT, SELECT, UPDATE;
+		DELETE, INSERT, SELECT, UPDATE, OPTIONS;
 
 		public static Type fromHttpMethod(final String method) {
 			Type type;
@@ -88,6 +88,8 @@ public interface Request {
 				type = Type.SELECT;
 			} else if (method.equals("POST")) {
 				type = Type.INSERT;
+			} else if (method.equals("OPTIONS")) {
+				type = Type.OPTIONS;
 			} else { // method.equals("PUT")
 				type = Type.UPDATE;
 			}

@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -49,7 +50,63 @@ import com.codahale.metrics.annotation.Timed;
 public class ResResource {
 	private final Timer allRequestTypesTimer = MonitoringFactory.getMonitoringManager().newTimer(ResResource.class, "allRequestTypes");
 	private final Counter confRequestCounter = MonitoringFactory.getMonitoringManager().newCounter(ResResource.class, "conf");
-	
+
+
+	/**
+	@OPTIONS
+	@Path("{resName}/{resId1}/{resId2}")
+	@Timed
+	public Response options(@PathParam("resName") final String resName,
+							@PathParam("resId1") final String resId1,
+							@PathParam("resId2") final String resId2,
+							@HeaderParam("Content-Type") String contentMediaType,
+							@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
+							@Context final SecurityContext securityContext) {
+
+		return options(resName, contentMediaType, acceptMediaType, httpRequest, securityContext);
+	}
+
+	@OPTIONS
+	@Path("{resName}/{resId1}")
+	@Timed
+	public Response options(@PathParam("resName") final String resName,
+						   @PathParam("resId1") final String resId1,
+						   @HeaderParam("Content-Type") String contentMediaType,
+						   @HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
+						   @Context final SecurityContext securityContext) {
+
+		return options(resName, contentMediaType, acceptMediaType, httpRequest, securityContext);
+	}
+
+	@OPTIONS
+	@Path("{resName}")
+	@Timed
+	public Response options(@PathParam("resName") final String resName,
+							@HeaderParam("Content-Type") String contentMediaType,
+							@HeaderParam("Accept") String acceptMediaType,
+							@Context final HttpServletRequest httpRequest,
+							@Context final SecurityContext securityContext) {
+		String cacheControl = Config.properties.getProperty(Config.KEY_HTTP_CACHE_CONTROL,
+				Config.DEFAULT_HTTP_CACHE_CONTROL);
+
+		System.out.println("-------- options");
+		return Response.ok("ok")
+				.header("Cache-Control", cacheControl)
+				.header("Allow", "GET")
+				.header("Allow", "OPTIONS")
+				.header("Allow", "PUT")
+				.header("Allow", "POST")
+				.header("Allow", "DELETE")
+				.header("Access-Control-Allow-Origin", "http://localhost:3000")
+				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+				.header("Access-Control-Allow-Credentials", "true")
+				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+				.header("Access-Control-Max-Age", "1209600")
+				.build();
+	}
+
+	 **/
+
 	@DELETE
 	@Path("{resName}/{resId1}")
 	@Timed
@@ -119,7 +176,6 @@ public class ResResource {
 			@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
 			@Context final SecurityContext securityContext) {
 
-		System.out.println("---####### GET 2 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1, resId2 },
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -145,7 +201,6 @@ public class ResResource {
 			@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
 			@Context final SecurityContext securityContext) {
 
-		System.out.println("---####### GET 4 ");
 		return executeRequest(httpRequest, Request.Type.SELECT, resName, null, null,
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -317,12 +372,13 @@ public class ResResource {
 	// Private utils
 
 	/** Processes the request. The central method of this resource class. */
-	private Response executeRequest(HttpServletRequest httpRequest, final Request.Type requestType,
+	private Response executeRequest(HttpServletRequest httpRequest,
+									final Request.Type requestType,
 			final String resName, SqlResource sqlResource, final List<RequestValue> resIds,
 			final List<RequestValue> params, final String requestBody, String contentMediaType,
 			String acceptMediaType, SecurityContext securityContext) {
 		Timer.Context requestTimerContext = allRequestTypesTimer.time();
-		
+
 		// Determine the media types and create http attributes structure
 		String requestMediaType = RequestUtil.getRequestMediaType(contentMediaType);
 		String responseMediaType = RequestUtil
@@ -338,17 +394,19 @@ public class ResResource {
 		final RequestLogger requestLogger = Factory.getRequestLogger();
 		requestLogger.setHttpRequestAttributes(httpAttributes);
 
+		requestLogger.log("--- response");
 		// Authorize
 		if (!SecurityFactory.getAuthorizer().isAuthorized(new SecurityContextAdapter(securityContext),
 				requestType, resName)) {
 			Status status = Status.FORBIDDEN;
 			requestLogger.log(status.getStatusCode());
+
 			return Response.status(status)
-					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Credentials", "true")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-					.header("Access-Control-Max-Age", "1209600")
+					//.header("Access-Control-Allow-Origin", "http://localhost:3000")
+					//.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					//.header("Access-Control-Allow-Credentials", "true")
+					//.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+					//.header("Access-Control-Max-Age", "1209600")
 					.build();
 		}
 
@@ -363,6 +421,9 @@ public class ResResource {
 				final Request request = Factory.getRequest(httpAttributes, requestType, resName, resIds,
 						params, null, requestLogger);
 				responseBody = sqlResource.read(request, responseMediaType);
+			} else if (requestType.equals(Type.OPTIONS)){
+				responseBody="";
+
 			} else { // INSERT, UPDATE or DELETE
 				final WriteResponse writeResponse;
 				if (requestMediaType != null
@@ -391,15 +452,16 @@ public class ResResource {
 				cacheControl = sqlResource.getDefinition().getHttp().getResponse().getCacheControl();
 			}
 
+			requestLogger.log("--- response");
 			// Send the response
 			return Response.ok(responseBody)
 					.type(responseMediaType)
-					.header("Cache-Control", cacheControl)
-					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Credentials", "true")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-					.header("Access-Control-Max-Age", "1209600")
+					// .header("Cache-Control", cacheControl)
+					// .header("Access-Control-Allow-Origin", "http://localhost:3000")
+					// .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					// .header("Access-Control-Allow-Credentials", "true")
+					// .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+					// .header("Access-Control-Max-Age", "1209600")
 					.build();
 
 		} catch (final SqlResourceException exception) {
@@ -423,6 +485,7 @@ public class ResResource {
 		try {
 			sqlResource = Factory.getSqlResource(resName);
 			resIds = RequestUtil.getResIds(sqlResource, resIdValues);
+
 		} catch (final SqlResourceException exception) {
 			return HttpRequestHelper.handleException(httpRequest, requestBody, contentMediaType, exception,
 					null);
