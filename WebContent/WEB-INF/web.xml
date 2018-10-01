@@ -124,6 +124,16 @@
 		<servlet-name>profile</servlet-name>
 		<url-pattern>/profile/*</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>org.restsql.service.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/logout/*</url-pattern>
+	</servlet-mapping>
+
 	<!-- Disable RestEasy Deployer package scanning for JBoss AS 6+ -->
 	<context-param>
     		<param-name>resteasy.scan</param-name>

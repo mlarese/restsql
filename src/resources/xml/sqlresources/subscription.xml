@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
-		SELECT row_id, authorization_id, service_id
+		SELECT
+        row_id,
+        authorization_id,
+        service_id
 		FROM subscription
 	</query>
     <metadata>

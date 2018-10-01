@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
-		SELECT operator_id, operator_name, wind_mt_carrier, country_id
+		SELECT
+        operator_id,
+        operator_name,
+        wind_mt_carrier,
+        country_id
 		FROM operator
 	</query>
     <metadata>

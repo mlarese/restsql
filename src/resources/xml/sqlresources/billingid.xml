@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
-		SELECT billing_id, billing_price, h3g_billing_priceband, tim_id_price
+		SELECT billing_id,
+        billing_price,
+        h3g_billing_priceband,
+        tim_id_price,
+        billing_id,
+        tim_mpay_fraction_id
 		FROM billingid
 	</query>
     <metadata>
