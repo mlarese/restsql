@@ -15,7 +15,7 @@
         transactions.billing_id,
         transactions.creation_date FROM transactions
         left outer join service on service.service_id = transactions.service_id
-        left outer join cp on cp.cp_id = transactions.cp_id
+        left outer join cp on cp.cp_id = service.cp_id
         left outer join billingid on billingid.billing_id = transactions.billing_id
     </query>
     <metadata>
