@@ -2,13 +2,16 @@
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
 		SELECT
-        row_id,
-        authorization_id,
-        service_id
+        subscription.row_id,
+        subscription.authorization_id,
+        service.cp_service_name,
+        subscription.service_id
 		FROM subscription
+        left outer join service on service.service_id = subscription.service_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="subscription" role="Parent"/>
+        <table name="service" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

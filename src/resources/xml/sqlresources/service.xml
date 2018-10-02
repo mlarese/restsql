@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
-		SELECT service_id,
-        cp_id,
-        cp_service_name,
-        cp_activate_url,
-        cp_deact_url,
-        cp_bill_response_url,
-        wind_site_id,
-        wind_mt_format,
-        wind_mt_udh,
-        wind_mt_reqsource,
-        wind_mt_source,
-        wind_caring_service_type,
-        wind_deact_service_type,
-        tim_service_name,
-        status_id,
-        creation_date,
-        last_modify_date
+		SELECT
+        service.service_id,
+        service.cp_id,
+        service.cp_service_name,
+        cp.cp_name,
+        service.cp_activate_url,
+        service.cp_deact_url,
+        service.cp_bill_response_url,
+        service.wind_site_id,
+        service.wind_mt_format,
+        service.wind_mt_udh,
+        service.wind_mt_reqsource,
+        service.wind_mt_source,
+        service.wind_caring_service_type,
+        service.wind_deact_service_type,
+        service.tim_service_name,
+        service.status_id,
+        service.creation_date,
+        service.last_modify_date
 		FROM service
+        left outer join cp on service.cp_id = cp.cp_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="service" role="Parent"/>
+        <table name="cp" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

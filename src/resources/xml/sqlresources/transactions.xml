@@ -2,14 +2,24 @@
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
 		SELECT
-        row_id,
-        service_id,
+        transactions.row_id,
+        transactions.service_id,
+        service.cp_service_name,
+        billingid.billing_price,
+        billingid.h3g_billing_priceband,
+        billingid.tim_id_price,
+        billingid.tim_mpay_fraction_id,
         transaction_id,
-        msisdn,
-        billing_id,
-        creation_date FROM transactions</query>
+        transactions.msisdn,
+        transactions.billing_id,
+        transactions.creation_date FROM transactions
+        left outer join service on service.service_id = transactions.service_id
+        left outer join billingid on billingid.billing_id = transactions.billing_id
+    </query>
     <metadata>
         <database default="cspdb"/>
         <table name="transactions" role="Parent"/>
+        <table name="service" role="ParentExtension"/>
+        <table name="billingid" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>
