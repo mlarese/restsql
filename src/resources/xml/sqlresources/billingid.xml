@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
-		SELECT billing_id,
-        billing_price,
-        h3g_billing_priceband,
-        tim_id_price,
-        billing_id,
-        tim_mpay_fraction_id
+		SELECT
+        billingid.billing_id,
+        billingid.billing_price,
+        billingid.h3g_billing_priceband,
+        billingid.tim_id_price,
+        billingid.currency_id,
+        currency.currency,
+        billingid.tim_mpay_fraction_id
 		FROM billingid
+        left outer join currency on currency.currency_id = billingid.currency_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="billingid" role="Parent"/>
+        <table name="currency" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

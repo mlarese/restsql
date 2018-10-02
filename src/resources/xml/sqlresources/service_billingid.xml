@@ -7,6 +7,8 @@
         service_billingid.service_id,
         service_billingid.billing_id,
         billingid.billing_price,
+        currency.currency,
+        cp.cp_name,
         billingid.h3g_billing_priceband,
         billingid.tim_id_price,
         billingid.tim_mpay_fraction_id,
@@ -14,11 +16,15 @@
 		FROM service_billingid
         left outer join service on service.service_id = service_billingid.service_id
         left outer join billingid on billingid.billing_id = service_billingid.billing_id
+        left outer join currency on billingid.currency_id = currency.currency_id
+        left outer join cp on cp.cp_id = service.cp_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="service_billingid" role="Parent"/>
         <table name="service" role="ParentExtension"/>
         <table name="billingid" role="ParentExtension"/>
+        <table name="currency" role="ParentExtension"/>
+        <table name="cp" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

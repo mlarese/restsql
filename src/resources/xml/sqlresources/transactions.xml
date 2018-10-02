@@ -5,6 +5,7 @@
         transactions.row_id,
         transactions.service_id,
         service.cp_service_name,
+        cp.cp_name,
         billingid.billing_price,
         billingid.h3g_billing_priceband,
         billingid.tim_id_price,
@@ -14,6 +15,7 @@
         transactions.billing_id,
         transactions.creation_date FROM transactions
         left outer join service on service.service_id = transactions.service_id
+        left outer join cp on cp.cp_id = transactions.cp_id
         left outer join billingid on billingid.billing_id = transactions.billing_id
     </query>
     <metadata>
@@ -21,5 +23,6 @@
         <table name="transactions" role="Parent"/>
         <table name="service" role="ParentExtension"/>
         <table name="billingid" role="ParentExtension"/>
+        <table name="cp" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

@@ -43,14 +43,14 @@ public class HttpRequestHelper {
 
 					// Query (JSON)
 					requestBody.append("<td><a href=\"");
-					requestBody.append("../res/");
+					requestBody.append("./res/");
 					requestBody.append(resName);
 					requestBody
 							.append("?_output=application/json&_limit=10&amp;_offset=0\">query/json</a></td>");
 
 					// Query (XML)
 					requestBody.append("<td><a href=\"");
-					requestBody.append("../res/");
+					requestBody.append("./res/");
 					requestBody.append(resName);
 					requestBody.append("?_limit=10&amp;_offset=0\">query/xml</a></td>");
 

@@ -2,14 +2,17 @@
 <ns2:sqlResource xmlns:ns2="http://restsql.org/schema">
     <query>
 		SELECT
-        operator_id,
-        operator_name,
-        wind_mt_carrier,
-        country_id
+        operator.operator_id,
+        operator.operator_name,
+        operator.wind_mt_carrier,
+        operator.country_id,
+        country.country
 		FROM operator
+        left outer join country on country.country_id = operator.country_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="operator" role="Parent"/>
+        <table name="country" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>
