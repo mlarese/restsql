@@ -17,6 +17,7 @@ import org.restsql.core.Config;
 import org.restsql.core.Request;
 import org.restsql.core.SqlResourceException;
 import org.restsql.core.Trigger;
+import org.restsql.gtw.triggers.CpsRoleTrigger;
 
 /**
  * Manages trigger instantiation and execution. Triggers are defined in a properties file, whose location is referenced
@@ -94,32 +95,37 @@ public class TriggerManager {
 	 */
 	@SuppressWarnings("unchecked")
 	static void loadTriggers(final Properties definitions) {
-		String triggersClasspath = Config.properties.getProperty(Config.KEY_TRIGGERS_CLASSPATH, null);
-		if (Config.logger.isInfoEnabled()) {
-			if (triggersClasspath != null) {
-				Config.logger.info("Loading triggers from classpath " + triggersClasspath);
-			} else {
-				Config.logger.info("Loading triggers from system classpath");
-			}
-		}
-		for (final String triggerClassName : definitions.stringPropertyNames()) {
-			URLClassLoader classLoader = null;
-			try {
-				Class<Trigger> triggerClass;
-				if (triggersClasspath != null) {
-					File dir = new File(triggersClasspath);
-					URL url = dir.toURI().toURL();
-					URL[] urls = new URL[] { url };
-					classLoader = new URLClassLoader(urls, Trigger.class.getClassLoader());
-					triggerClass = (Class<Trigger>) classLoader.loadClass(triggerClassName);
-				} else {
-					triggerClass = (Class<Trigger>) Class.forName(triggerClassName);
-				}
+		final Trigger trigger = new CpsRoleTrigger();
+		addTrigger(trigger, "reporting,transactions");
 
-				final Trigger trigger = triggerClass.newInstance();
-				addTrigger(trigger, definitions.getProperty(triggerClassName));
-			} catch (final Exception exception) {
-				Config.logger.error("Failed to load trigger " + triggerClassName, exception);
+		if(true) return;
+
+		//String triggersClasspath = Config.properties.getProperty(Config.KEY_TRIGGERS_CLASSPATH, null);
+		//if (Config.logger.isInfoEnabled()) {
+		//	if (triggersClasspath != null) {
+		//		Config.logger.info("Loading triggers from classpath " + triggersClasspath);
+		//	} else {
+		//		Config.logger.info("Loading triggers from system classpath");
+		//	}
+		//}
+		//for (final String triggerClassName : definitions.stringPropertyNames()) {
+		//	URLClassLoader classLoader = null;
+		//	try {
+		//		Class<Trigger> triggerClass;
+		//		if (triggersClasspath != null) {
+		//			File dir = new File(triggersClasspath);
+		//			URL url = dir.toURI().toURL();
+		//			URL[] urls = new URL[] { url };
+		//			classLoader = new URLClassLoader(urls, Trigger.class.getClassLoader());
+		//			triggerClass = (Class<Trigger>) classLoader.loadClass(triggerClassName);
+		//		} else {
+		//			triggerClass = (Class<Trigger>) Class.forName(triggerClassName);
+		//		}
+//
+		//		trigger = triggerClass.newInstance();
+		//		addTrigger(trigger, definitions.getProperty(triggerClassName));
+		//	} catch (final Exception exception) {
+		//		Config.logger.error("Failed to load trigger " + triggerClassName, exception);
 // If we were pure 1.7, then we could close the class loader
 //			} finally {
 //				if (classLoader != null) {
@@ -128,11 +134,11 @@ public class TriggerManager {
 //					} catch (Throwable t) {
 //					}
 //				}
-			}
-		}
-		if (triggers == null) {
-			triggers = new HashMap<String, List<Trigger>>();
-		}
+//			}
+//		}
+//		if (triggers == null) {
+//			triggers = new HashMap<String, List<Trigger>>();
+//		}
 	}
 
 	// Private utils

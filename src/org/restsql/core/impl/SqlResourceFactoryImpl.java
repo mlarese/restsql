@@ -191,7 +191,7 @@ public class SqlResourceFactoryImpl implements SqlResourceFactory {
 			//Config.logger.error(message);
 			//throw new SqlResourceFactoryException(message);
 
-			resNames.add(packageName + "cp");
+			resNames.add(packageName + "CpsRoleTrigger");
 			resNames.add(packageName + "service");
 			resNames.add(packageName + "transactions");
 			resNames.add(packageName + "service_billingid");

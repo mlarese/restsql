@@ -235,13 +235,26 @@ public class ColumnMetaDataImpl implements ColumnMetaData {
 		Object value = requestValue.getValue();
 		if (value instanceof String && requestValue.getOperator() != RequestValue.Operator.In) {
 			try {
+
 				switch (getColumnType()) {
+					case Types.BIT:
+					case Types.TINYINT:
+						if(value.equals("true")) {
+							System.out.println("@@@@@@@@ 1" + getColumnType() + " " + value + " " + getColumnName());
+							value = 1;
+						} else if(value.equals("false")) {
+							System.out.println("@@@@@@@@ 2" + getColumnType() + " " + value + " " + getColumnName());
+							value = 0;
+						} else {
+							System.out.println("@@@@@@@@ 3" + getColumnType() + " " + value + " " + getColumnName());
+							value = Integer.valueOf((String) value);
+						}
+						break;
 					case Types.BOOLEAN:
 						value = Boolean.valueOf((String) value);
 						break;
 
-					case Types.BIT:
-					case Types.TINYINT:
+
 					case Types.SMALLINT:
 					case Types.INTEGER:
 						value = Integer.valueOf((String) value);

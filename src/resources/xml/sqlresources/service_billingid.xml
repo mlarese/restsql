@@ -9,6 +9,7 @@
         billingid.billing_price,
         currency.currency,
         cp.cp_name,
+        cp.cp_id,
         billingid.h3g_billing_priceband,
         billingid.tim_id_price,
         billingid.tim_mpay_fraction_id,

@@ -388,12 +388,14 @@ public class SqlResourceImpl implements SqlResource {
 
 		// Do the main table if insert
 		if (request.getType() == Type.INSERT) {
+			System.out.println("----------- 1");
 			rowsAffected += execWrite(connection, request, mainTableSqlStruct, true);
 		}
 
 		// Do extensions next
 		for (final SqlBuilder.SqlStruct sqlStruct : sqls.values()) {
-			rowsAffected += execWrite(connection, request, sqlStruct, false);
+			System.out.println("----------- 2");
+			// rowsAffected += execWrite(connection, request, sqlStruct, false);
 		}
 
 		// Do the main table if update or delete
@@ -403,6 +405,7 @@ public class SqlResourceImpl implements SqlResource {
 
 		// Build inserted results for the write response
 		if (request.getType() == Type.INSERT) {
+			System.out.println("----------- 3");
 			List<TableMetaData> tables;
 			if (doParent) {
 				tables = metaData.getParentPlusExtTables();
@@ -430,8 +433,11 @@ public class SqlResourceImpl implements SqlResource {
 	private int execWrite(final Connection connection, final Request request, final SqlStruct sqlStruct,
 			final boolean doMain) throws SqlResourceException {
 		int rowsAffected = 0;
+
+		if (sqlStruct == null) System.out.println("@@@@@@@@@@@ wrexecute sqlStruct null");
 		if (sqlStruct != null) {
 			if (!doMain && sqlStruct.isClauseEmpty()) {
+				System.out.println("@@@@@@@@@@@ wrexecute empty");
 				// do not execute update on extension, which would affect all rows
 			} else {
 				try {
@@ -451,7 +457,9 @@ public class SqlResourceImpl implements SqlResource {
 						}
 					}
 					rowsAffected = statement.executeUpdate();
+					System.out.println("@@@@@@@@@@@ wrexecute");
 					statement.close();
+
 				} catch (final SQLException exception) {
 					throw new SqlResourceException(exception, sqlStruct.getStatement());
 				}

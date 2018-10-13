@@ -1,6 +1,8 @@
 /* Copyright (c) restSQL Project Contributors. Licensed under MIT. */
 package org.restsql.core;
 
+import org.restsql.security.SecurityContext;
+
 import java.util.List;
 
 /**
@@ -28,6 +30,8 @@ public interface Request {
 	/** Returns parent, if any. */
 	public Request getParent();
 
+	public void setSecurityContext(SecurityContext securityContext);
+	public SecurityContext getSecurityContext();
 	/**
 	 * Returns ordered list of primary key values for a CRUD request on a single object (row). On a hierarchical SQL
 	 * Resource, this list identifies the parent and the children are identified by the children parameters.

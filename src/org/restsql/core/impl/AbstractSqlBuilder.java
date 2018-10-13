@@ -183,7 +183,7 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 
 	/**
 	 * Builds insert SQL.
-	 * 
+	 *
 	 * @param params insert params
 	 * @return map of sql struct, per table
 	 * @throws InvalidRequestException if a database access error occurs
@@ -193,10 +193,16 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 
 		final Map<String, SqlStruct> sqls = new HashMap<String, SqlStruct>(metaData.getNumberTables());
 
+		System.out.println("@@@@@@@@@ buildsql");
+		String resourceName = null;
 		// Iterate through the params and build the sql for each table
 		for (final RequestValue param : request.getParameters()) {
 			final List<TableMetaData> tables = metaData.getWriteTables(request.getType(), doParent);
 			for (final TableMetaData table : tables) {
+
+
+				if (resourceName == null && table.getTableRole().name().equals("Parent")) resourceName = table.getTableName();
+
 				final ColumnMetaData column = table.getColumns().get(param.getName());
 				if (column != null) {
 					if (column.isReadOnly()) {
@@ -205,6 +211,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 					}
 					final String qualifiedTableName = column.getQualifiedTableName();
 					SqlStruct sql = sqls.get(qualifiedTableName);
+					System.out.println("********- table " + qualifiedTableName + " role="+table.getTableRole());
+
 					if (sql == null) {
 						// Create new sql holder
 						sql = new SqlStruct(DEFAULT_INSERT_SIZE, DEFAULT_INSERT_SIZE / 2);
@@ -243,6 +251,7 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 
 		for (final String tableName : sqls.keySet()) {
 			final SqlStruct sql = sqls.get(tableName);
+			System.out.println("############# table " + tableName + " resource="+resourceName);
 			if (sql == null) {
 				sqls.remove(tableName);
 			} else {
@@ -250,11 +259,16 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 				sql.appendToBothClauses(")");
 				sql.compileStatements();
 			}
+			System.out.println(sql.getStatement());
 		}
 
 		if (sqls.size() == 0) {
 			throw new InvalidRequestException(InvalidRequestException.MESSAGE_INVALID_PARAMS);
 		}
+
+		Map<String, SqlStruct> sqlsRet = new HashMap<String, SqlStruct>();
+		sqlsRet.put(resourceName, sqls.get(resourceName));
+
 		return sqls;
 	}
 
@@ -371,6 +385,7 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 		if (!validParamFound) {
 			throw new InvalidRequestException(InvalidRequestException.MESSAGE_INVALID_PARAMS);
 		}
+
 		return sqls;
 	}
 

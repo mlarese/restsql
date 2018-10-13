@@ -1,6 +1,7 @@
 /* Copyright (c) restSQL Project Contributors. Licensed under MIT. */
 package org.restsql.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,7 +164,6 @@ public class ResResource {
 			@Context final UriInfo uriInfo, @HeaderParam("Accept") String acceptMediaType,
 			@Context final HttpServletRequest httpRequest, @Context final SecurityContext securityContext) {
 
-		System.out.println("---####### GET 1 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1 },
 				getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType, securityContext);
 	}
@@ -188,7 +188,6 @@ public class ResResource {
 			@Context final UriInfo uriInfo, @HeaderParam("Accept") String acceptMediaType,
 			@Context final HttpServletRequest httpRequest, @Context final SecurityContext securityContext) {
 
-		System.out.println("---####### GET 3 ");
 		return executeRequestParseResIds(httpRequest, Type.SELECT, resName, new String[] { resId1, resId2,
 				resId3 }, getNameValuePairs(uriInfo.getQueryParameters()), null, null, acceptMediaType,
 				securityContext);
@@ -383,7 +382,7 @@ public class ResResource {
 		String requestMediaType = RequestUtil.getRequestMediaType(contentMediaType);
 		String responseMediaType = RequestUtil
 				.getResponseMediaType(params, requestMediaType, acceptMediaType);
-		System.out.println("---- responseMediaType "+responseMediaType);
+		// System.out.println("---- responseMediaType "+responseMediaType);
 
 		responseMediaType = "application/json";
 
@@ -394,7 +393,7 @@ public class ResResource {
 		final RequestLogger requestLogger = Factory.getRequestLogger();
 		requestLogger.setHttpRequestAttributes(httpAttributes);
 
-		requestLogger.log("--- response");
+		// requestLogger.log("--- response");
 		// Authorize
 		if (!SecurityFactory.getAuthorizer().isAuthorized(new SecurityContextAdapter(securityContext),
 				requestType, resName)) {

@@ -9,6 +9,7 @@ import org.restsql.core.InvalidRequestException;
 import org.restsql.core.Request;
 import org.restsql.core.RequestLogger;
 import org.restsql.core.RequestValue;
+import org.restsql.security.SecurityContext;
 
 /**
  * Represents a restSQL request.
@@ -25,6 +26,17 @@ public class RequestImpl implements Request {
 	private Integer selectLimit, selectOffset;
 	private final String sqlResource;
 	private final Request.Type type;
+	private SecurityContext securityContext;
+
+	@Override
+	public SecurityContext getSecurityContext() {
+		return securityContext;
+	}
+
+	@Override
+	public void setSecurityContext(SecurityContext securityContext) {
+		this.securityContext = securityContext;
+	}
 
 	/** Constructs object. */
 	public RequestImpl(final HttpRequestAttributes httpAttributes, final Request.Type type,

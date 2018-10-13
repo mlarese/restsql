@@ -5,18 +5,23 @@
         reporting.row_id,
         reporting.cp_id,
         service.cp_service_name,
+        reporting.operator_id,
+        operator.operator_name,
         cp.cp_name,
+        cp.cp_id,
         reporting.service_id,
         reporting.daily_volume_billing,
         reporting.date
 		FROM reporting
         left outer join cp on cp.cp_id = reporting.cp_id
         left outer join service on service.service_id = reporting.service_id
+        left outer join operator on operator.operator_id = reporting.operator_id
 	</query>
     <metadata>
         <database default="cspdb"/>
         <table name="reporting" role="Parent"/>
         <table name="service" role="ParentExtension"/>
         <table name="cp" role="ParentExtension"/>
+        <table name="operator" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

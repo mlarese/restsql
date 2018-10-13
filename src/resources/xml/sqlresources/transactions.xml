@@ -4,12 +4,16 @@
 		SELECT
         transactions.row_id,
         transactions.service_id,
+        transactions.operator_id,
+        operator.operator_name,
         service.cp_service_name,
         cp.cp_name,
+        cp.cp_id,
         billingid.billing_price,
         billingid.h3g_billing_priceband,
         billingid.tim_id_price,
         billingid.tim_mpay_fraction_id,
+        currency.currency,
         transaction_id,
         transactions.msisdn,
         transactions.billing_id,
@@ -17,12 +21,16 @@
         left outer join service on service.service_id = transactions.service_id
         left outer join cp on cp.cp_id = service.cp_id
         left outer join billingid on billingid.billing_id = transactions.billing_id
+        left outer join currency on billingid.currency_id = currency.currency_id
+        left outer join operator on operator.operator_id = transactions.operator_id
     </query>
     <metadata>
         <database default="cspdb"/>
         <table name="transactions" role="Parent"/>
         <table name="service" role="ParentExtension"/>
         <table name="billingid" role="ParentExtension"/>
+        <table name="currency" role="ParentExtension"/>
         <table name="cp" role="ParentExtension"/>
+        <table name="operator" role="ParentExtension"/>
     </metadata>
 </ns2:sqlResource>

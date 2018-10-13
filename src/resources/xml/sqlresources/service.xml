@@ -21,7 +21,7 @@
         service.creation_date,
         service.last_modify_date
 		FROM service
-        left outer join cp on service.cp_id = cp.cp_id
+        left join cp on service.cp_id = cp.cp_id
 	</query>
     <metadata>
         <database default="cspdb"/>
