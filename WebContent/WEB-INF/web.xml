@@ -8,7 +8,7 @@
 	</welcome-file-list>
 
 
-	<filter>
+	<!-- filter>
 		<filter-name>CORS</filter-name>
 		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
 		<init-param>
@@ -37,7 +37,7 @@
 		<filter-name>CORS</filter-name>
 		<url-pattern>/*</url-pattern>
 		<url-pattern>/res/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping -->
 
 	<filter>
 		<filter-name>jersey</filter-name>
@@ -168,10 +168,17 @@
 	    <role-name>admin</role-name>
 	</security-role>
 
-	<security-constraint>
+	<!-- security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SQL Resources</web-resource-name>
-			<url-pattern>/res/*</url-pattern>
+			<url-pattern>/res/cp</url-pattern>
+			<url-pattern>/res/billingid</url-pattern>
+			<url-pattern>/res/country</url-pattern>
+			<url-pattern>/res/currency</url-pattern>
+			<url-pattern>/res/operator</url-pattern>
+			<url-pattern>/res/service</url-pattern>
+			<url-pattern>/res/service_billingid</url-pattern>
+			<url-pattern>/res/subscription</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
@@ -179,14 +186,12 @@
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
-	</security-constraint>
+	</security-constraint-->
 
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SQL Resources reporting</web-resource-name>
-			<url-pattern>/res/reporting</url-pattern>
-			<url-pattern>/res/transactions</url-pattern>
-			<url-pattern>/console</url-pattern>
+			<url-pattern>/res/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
@@ -199,18 +204,7 @@
 	</security-constraint>
 
 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>SQL Resources</web-resource-name>
-			<url-pattern>/res/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-		<user-data-constraint>
-			<transport-guarantee>NONE</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
+
 
 	<security-constraint>
 		<web-resource-collection>

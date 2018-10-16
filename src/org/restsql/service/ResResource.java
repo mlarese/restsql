@@ -411,6 +411,7 @@ public class ResResource {
 
 		try {
 			String responseBody = null;
+			Principal pri = httpRequest.getUserPrincipal();
 			if (sqlResource == null) {
 				sqlResource = Factory.getSqlResource(resName);
 			}

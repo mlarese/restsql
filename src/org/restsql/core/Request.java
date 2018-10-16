@@ -3,6 +3,7 @@ package org.restsql.core;
 
 import org.restsql.security.SecurityContext;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ public interface Request {
 	public static final String PARAM_NAME_OFFSET = "_offset";
 	public static final String PARAM_NAME_OUTPUT = "_output";
 
+	public Principal getPrincipal();
+	public void setPrincipal(Principal principal);
 	/** Returns children CUD requests to a single parent for a hierarchical SQL Resource. */
 	public List<List<RequestValue>> getChildrenParameters();
 

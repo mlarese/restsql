@@ -1,6 +1,7 @@
 /* Copyright (c) restSQL Project Contributors. Licensed under MIT. */
 package org.restsql.core.impl;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.restsql.core.Factory;
@@ -57,6 +58,18 @@ public class RequestImpl implements Request {
 		if (requestLogger != null) {
 			requestLogger.setRequest(this);
 		}
+	}
+
+	Principal principal;
+
+	@Override
+	public Principal getPrincipal() {
+		return principal;
+	}
+
+	@Override
+	public void setPrincipal(Principal principal) {
+		this.principal = principal;
 	}
 
 	@Override
