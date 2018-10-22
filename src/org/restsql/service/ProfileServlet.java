@@ -20,9 +20,15 @@ public class ProfileServlet extends HttpServlet {
 
         if(p==null) {
             o.put("role", null);
+            o.put("common_role", null);
             o.put("user", null);
             o.put("logged", false);
         }else {
+            if(request.isUserInRole("reporting")) {
+                o.put("common_role", "reporting");
+            } else {
+                o.put("common_role", "");
+            }
             o.put("role", findRole(request));
             o.put("user", p.getName());
             o.put("logged", true);
@@ -35,9 +41,9 @@ public class ProfileServlet extends HttpServlet {
 
     private String findRole(HttpServletRequest req) {
         String role = "";
-        role = "admin"; if(req.isUserInRole(role)) return role;
-        role = "reporting_cp"; if(req.isUserInRole(role)) return role;
-        role = "reporting_admin"; if(req.isUserInRole(role)) return role;
+        role = "admin";                if(req.isUserInRole(role)) return role;
+        role = "reporting_cp";         if(req.isUserInRole(role)) return role;
+        role = "reporting_admin";      if(req.isUserInRole(role)) return role;
         return  role;
     }
 }

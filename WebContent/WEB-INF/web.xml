@@ -168,7 +168,15 @@
 	    <role-name>admin</role-name>
 	</security-role>
 
-	<!-- security-constraint>
+	<security-role>
+		<role-name>reporting</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>*</role-name>
+	</security-role>
+
+	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SQL Resources</web-resource-name>
 			<url-pattern>/res/cp</url-pattern>
@@ -179,30 +187,54 @@
 			<url-pattern>/res/service</url-pattern>
 			<url-pattern>/res/service_billingid</url-pattern>
 			<url-pattern>/res/subscription</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
-		</auth-constraint>
-		<user-data-constraint>
-			<transport-guarantee>NONE</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint-->
-
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>SQL Resources reporting</web-resource-name>
-			<url-pattern>/res/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-			<role-name>reporting_cp</role-name>
-			<role-name>reporting_admin</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>SQL Resources</web-resource-name>
+			<url-pattern>/res/cp</url-pattern>
+			<url-pattern>/res/billingid</url-pattern>
+			<url-pattern>/res/country</url-pattern>
+			<url-pattern>/res/currency</url-pattern>
+			<url-pattern>/res/operator</url-pattern>
+			<url-pattern>/res/service</url-pattern>
+			<url-pattern>/res/service_billingid</url-pattern>
+			<url-pattern>/res/subscription</url-pattern>
+			<url-pattern>/res/transactions</url-pattern>
+			<url-pattern>/res/reporting</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>reporting</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>SQL Resources reporting</web-resource-name>
+			<url-pattern>/res/</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 
 
 

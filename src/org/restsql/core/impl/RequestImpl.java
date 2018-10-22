@@ -12,6 +12,8 @@ import org.restsql.core.RequestLogger;
 import org.restsql.core.RequestValue;
 import org.restsql.security.SecurityContext;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Represents a restSQL request.
  * 
@@ -60,16 +62,16 @@ public class RequestImpl implements Request {
 		}
 	}
 
-	Principal principal;
+	private HttpServletRequest httpServletRequest;
 
 	@Override
-	public Principal getPrincipal() {
-		return principal;
+	public HttpServletRequest getHttpRequest() {
+		return httpServletRequest;
 	}
 
 	@Override
-	public void setPrincipal(Principal principal) {
-		this.principal = principal;
+	public void setHttpRequest(HttpServletRequest httpServletRequest) {
+		this.httpServletRequest = httpServletRequest;
 	}
 
 	@Override

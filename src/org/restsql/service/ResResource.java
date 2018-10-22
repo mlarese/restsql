@@ -228,14 +228,26 @@ public class ResResource {
 	}
 
 	@POST
-	@Path("{resName}/{resId1}")
+	@Path("/put/{resName}/{resId1}")
 	@Timed
-	public Response post(@PathParam("resName") final String resName,
+	public Response putByPost(@PathParam("resName") final String resName,
 			@PathParam("resId1") final String resId1, final String requestBody,
 			@HeaderParam("Content-Type") String contentMediaType,
 			@HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
 			@Context final SecurityContext securityContext) {
-		return executeRequestParseResIds(httpRequest, Type.INSERT, resName, new String[] { resId1 }, null,
+		return executeRequestParseResIds(httpRequest, Type.UPDATE, resName, new String[] { resId1 }, null,
+				requestBody, contentMediaType, acceptMediaType, securityContext);
+	}
+
+	@POST
+	@Path("/del/{resName}/{resId1}")
+	@Timed
+	public Response delByPost(@PathParam("resName") final String resName,
+						 @PathParam("resId1") final String resId1, final String requestBody,
+						 @HeaderParam("Content-Type") String contentMediaType,
+						 @HeaderParam("Accept") String acceptMediaType, @Context final HttpServletRequest httpRequest,
+						 @Context final SecurityContext securityContext) {
+		return executeRequestParseResIds(httpRequest, Type.DELETE, resName, new String[] { resId1 }, null,
 				requestBody, contentMediaType, acceptMediaType, securityContext);
 	}
 
@@ -411,7 +423,6 @@ public class ResResource {
 
 		try {
 			String responseBody = null;
-			Principal pri = httpRequest.getUserPrincipal();
 			if (sqlResource == null) {
 				sqlResource = Factory.getSqlResource(resName);
 			}
@@ -420,6 +431,7 @@ public class ResResource {
 			if (requestType.equals(Request.Type.SELECT)) {
 				final Request request = Factory.getRequest(httpAttributes, requestType, resName, resIds,
 						params, null, requestLogger);
+				request.setHttpRequest(httpRequest);
 				responseBody = sqlResource.read(request, responseMediaType);
 			} else if (requestType.equals(Type.OPTIONS)){
 				responseBody="";
@@ -435,6 +447,7 @@ public class ResResource {
 				} else {
 					final Request request = Factory.getRequest(httpAttributes, requestType, resName, resIds,
 							params, null, requestLogger);
+					request.setHttpRequest(httpRequest);
 					writeResponse = sqlResource.write(request);
 				}
 				responseBody = Factory.getResponseSerializer(responseMediaType).serializeWrite(sqlResource, writeResponse);
